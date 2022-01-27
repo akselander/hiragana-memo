@@ -21,11 +21,17 @@ export class HiraganaCard extends LitElement {
       }
 
       #symbol {
-        background-color: #329e0e;
+        background: padding-box
+            linear-gradient(var(--accent-fill-rest), var(--accent-fill-rest)),
+          border-box var(--accent-stroke-control-rest);
+        color: var(--foreground-on-accent-rest);
       }
 
       #romaji {
-        background-color: #8c2381;
+        background: padding-box
+            linear-gradient(var(--neutral-fill-rest), var(--neutral-fill-rest)),
+          border-box var(--neutral-stroke-control-rest);
+        color: var(--neutral-foreground-rest);
       }
     `;
   }
@@ -53,3 +59,4 @@ export class HiraganaCard extends LitElement {
         </div>`;
   }
 }
+

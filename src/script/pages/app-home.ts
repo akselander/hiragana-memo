@@ -1,10 +1,10 @@
 import { LitElement, css, html } from 'lit';
-import { property, customElement } from 'lit/decorators.js';
-
+import { property, customElement, state } from 'lit/decorators.js';
+import shuffle from '../utils/shuffle';
 // For more info on the @pwabuilder/pwainstall component click here https://github.com/pwa-builder/pwa-install
 import '@pwabuilder/pwainstall';
 
-const hiragana: Hiragana[] = [
+const HIRAGANA: Hiragana[] = [
   { symbol: 'あ', romaji: 'a' },
   { symbol: 'い', romaji: 'i' },
   { symbol: 'う', romaji: 'u' },
@@ -57,6 +57,8 @@ const hiragana: Hiragana[] = [
 export class AppHome extends LitElement {
   @property() message = 'Welcome!';
 
+  @state() hiragana = HIRAGANA;
+
   static get styles() {
     return css`
       #welcomeBar {
@@ -66,32 +68,25 @@ export class AppHome extends LitElement {
         flex-direction: column;
       }
 
-      #welcomeBar fluent-card {
-        margin-bottom: 12px;
+      .split {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
 
-      #welcomeCard,
-      #infoCard {
-        padding: 18px;
-        padding-top: 0px;
+      #welcomeCard {
+        padding: 1rem 3rem;
+        width: min(90%, 40rem);
       }
 
       pwa-install {
         position: absolute;
-        bottom: 16px;
-        right: 16px;
+        bottom: 0;
       }
 
-      #mainInfo fluent-anchor::part(control),
-      #infoCard fluent-anchor::part(control) {
-        color: white;
-      }
-
-      @media (min-width: 1024px) {
-        #welcomeCard,
-        #infoCard {
-          width: 54%;
-        }
+      fluent-button {
+        font-size: 1rem;
+        background-color: #329e0e;
       }
 
       @media (screen-spanning: single-fold-vertical) {
@@ -100,20 +95,11 @@ export class AppHome extends LitElement {
           align-items: flex-start;
           justify-content: space-between;
         }
-
-        #welcomeCard {
-          margin-right: 64px;
-        }
       }
 
       @media (prefers-color-scheme: light) {
         fluent-card {
           --fill-color: #edebe9;
-        }
-
-        #mainInfo fluent-anchor::part(control),
-        #infoCard fluent-anchor::part(control) {
-          color: initial;
         }
       }
 
@@ -148,6 +134,10 @@ export class AppHome extends LitElement {
     }
   }
 
+  shuffle() {
+    this.hiragana = shuffle(HIRAGANA);
+  }
+
   render() {
     return html`
       <app-header></app-header>
@@ -157,9 +147,15 @@ export class AppHome extends LitElement {
           <fluent-card id="welcomeCard">
             <h2>${this.message}</h2>
 
-            <p>Here you can practice your Hiragana!</p>
+            <div class="split">
+              <p>Here you can practice your Hiragana!</p>
 
-            <div id="hiraganaSet">${hiragana.map(renderCard)}</div>
+              <fluent-button appearance="accent" @click=${this.shuffle}
+                >Shuffle</fluent-button
+              >
+            </div>
+
+            <div id="hiraganaSet">${this.hiragana.map(renderCard)}</div>
           </fluent-card>
         </div>
 
@@ -177,3 +173,4 @@ type Hiragana = {
   symbol: string;
   romaji: string;
 };
+

@@ -2,9 +2,9 @@
   "name": "Hiragana Memo",
   "display": "standalone",
   "start_url": "/",
-  "short_name": "starter",
+  "short_name": "Hiragana Memo",
   "theme_color": "#E1477E",
-  "description": "This is an app to practice Hiragana",
+  "description": "Hiragana memo game.",
   "orientation": "any",
   "background_color": "#E1477E",
   "related_applications": [],
@@ -39,5 +39,5 @@
     }
   ],
   "features": ["Cross Platform", "fast", "simple"],
-  "categories": ["utility"]
+  "categories": ["utility", "education"]
 }

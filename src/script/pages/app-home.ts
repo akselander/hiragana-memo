@@ -76,7 +76,7 @@ export class AppHome extends LitElement {
 
       #welcomeCard {
         padding: 1rem 3rem;
-        width: min(90%, 40rem);
+        width: min(100%, 40rem);
       }
 
       pwa-install {

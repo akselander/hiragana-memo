@@ -23,15 +23,13 @@ export class FlipCard extends LitElement {
 
       #face {
         background: padding-box
-            linear-gradient(var(--accent-fill-rest), var(--accent-fill-rest)),
-          border-box var(--accent-stroke-control-rest);
+          linear-gradient(var(--accent-fill-rest), var(--accent-fill-rest));
         color: var(--foreground-on-accent-rest);
       }
 
       #flipped {
         background: padding-box
-            linear-gradient(var(--neutral-fill-rest), var(--neutral-fill-rest)),
-          border-box var(--neutral-stroke-control-rest);
+          linear-gradient(var(--neutral-fill-rest), var(--neutral-fill-rest));
         color: var(--neutral-foreground-rest);
       }
     `;

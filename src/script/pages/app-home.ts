@@ -66,12 +66,19 @@ export class AppHome extends LitElement {
         justify-content: center;
         align-items: center;
         flex-direction: column;
+        text-align: center;
       }
 
-      .split {
+      #welcomeCard {
+        padding: 1rem 2rem;
+        width: min(100%, 40rem);
+      }
+
+      #hiraganaSet {
         display: flex;
-        flex-direction: column;
-        text-align: center;
+        flex-wrap: wrap;
+        column-gap: 2rem;
+        justify-content: center;
       }
 
       pwa-install {
@@ -80,8 +87,26 @@ export class AppHome extends LitElement {
       }
 
       fluent-button {
-        font-size: 1rem;
         background-color: #329e0e;
+        width: 100%;
+        --density: 4;
+        font-size: 1.5rem;
+
+        --accent-fill-rest: #e3bac6;
+        --accent-fill-active: #fde8e9;
+        --accent-fill-hover: #fde8e9;
+        --foreground-on-accent-rest: #1f2232;
+        --foreground-on-accent-active: #1f2232;
+        --foreground-on-accent-hover: #1f2232;
+        --accent-stroke-control-rest: #fde8e9;
+        --accent-stroke-control-active: #fde8e9;
+        --accent-stroke-control-hover: #fde8e9;
+      }
+
+      flip-card {
+        --foreground-on-accent-rest: #1f2232;
+        --accent-fill-rest: #e3bac6;
+        --neutral-fill-rest: #fde8e9;
       }
 
       @media (screen-spanning: single-fold-vertical) {
@@ -95,6 +120,7 @@ export class AppHome extends LitElement {
       @media (prefers-color-scheme: light) {
         fluent-card {
           --fill-color: #edebe9;
+          border: none;
         }
 
         fluent-button {
@@ -105,41 +131,8 @@ export class AppHome extends LitElement {
       @media (prefers-color-scheme: dark) {
         fluent-card {
           --fill-color: #1f2232;
-          color: white;
           border: none;
         }
-
-        fluent-button {
-          --accent-fill-rest: #e3bac6;
-          --accent-fill-active: #fde8e9;
-          --accent-fill-hover: #fde8e9;
-          --foreground-on-accent-rest: #1f2232;
-          --foreground-on-accent-active: #1f2232;
-          --foreground-on-accent-hover: #1f2232;
-          --accent-stroke-control-rest: #fde8e9;
-
-          --density: 4;
-          font-size: 1.5rem;
-        }
-
-        flip-card {
-          --accent-fill-rest: #e3bac6;
-          --foreground-on-accent-rest: #1f2232;
-
-          --neutral-fill-rest: #fde8e9;
-        }
-      }
-
-      #welcomeCard {
-        padding: 1rem 2rem;
-        width: min(100%, 40rem);
-      }
-
-      #hiraganaSet {
-        display: flex;
-        flex-wrap: wrap;
-        column-gap: 2rem;
-        justify-content: center;
       }
 
       @media (min-width: 480px) {
@@ -165,15 +158,14 @@ export class AppHome extends LitElement {
       <div>
         <div id="welcomeBar">
           <fluent-card id="welcomeCard">
-            <div class="split">
-              <h2>Practice your Hiragana!</h2>
-
-              <fluent-button appearance="accent" @click=${this.shuffle}
-                >Shuffle</fluent-button
-              >
-            </div>
+            <fluent-button appearance="accent" @click=${this.shuffle}
+              >Shuffle</fluent-button
+            >
 
             <div id="hiraganaSet">${this.hiragana.map(renderCard)}</div>
+            <fluent-button appearance="accent" @click=${this.shuffle}
+              >Shuffle</fluent-button
+            >
           </fluent-card>
         </div>
 

@@ -6,7 +6,7 @@ import './app-home';
 import { Router } from '@vaadin/router';
 
 import '../components/header';
-import '../components/hiragana-card';
+import '../components/flip-card';
 
 @customElement('app-index')
 export class AppIndex extends LitElement {
@@ -81,3 +81,4 @@ export class AppIndex extends LitElement {
     `;
   }
 }
+

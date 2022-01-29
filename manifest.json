@@ -3,10 +3,10 @@
   "display": "standalone",
   "start_url": "/",
   "short_name": "Hiragana Memo",
-  "theme_color": "#E1477E",
-  "description": "Hiragana memo game.",
+  "theme_color": "#1f2232",
+  "description": "A simple Hiragana memo game.",
   "orientation": "any",
-  "background_color": "#E1477E",
+  "background_color": "#1f2232",
   "related_applications": [],
   "prefer_related_applications": false,
   "icons": [
@@ -41,3 +41,4 @@
   "features": ["Cross Platform", "fast", "simple"],
   "categories": ["utility", "education"]
 }
+

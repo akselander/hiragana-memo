@@ -1,12 +1,12 @@
 import { LitElement, css, html } from 'lit';
 import { property, customElement, state } from 'lit/decorators.js';
 
-@customElement('hiragana-card')
-export class HiraganaCard extends LitElement {
-  @property({ type: String }) symbol = '';
-  @property({ type: String }) romaji = '';
+@customElement('flip-card')
+export class FlipCard extends LitElement {
+  @property({ type: String }) face = '';
+  @property({ type: String }) flipped = '';
 
-  @state() flipped = false;
+  @state() isFlipped = false;
 
   static get styles() {
     return css`
@@ -18,16 +18,17 @@ export class HiraganaCard extends LitElement {
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        border-radius: 0.375rem;
       }
 
-      #symbol {
+      #face {
         background: padding-box
             linear-gradient(var(--accent-fill-rest), var(--accent-fill-rest)),
           border-box var(--accent-stroke-control-rest);
         color: var(--foreground-on-accent-rest);
       }
 
-      #romaji {
+      #flipped {
         background: padding-box
             linear-gradient(var(--neutral-fill-rest), var(--neutral-fill-rest)),
           border-box var(--neutral-stroke-control-rest);
@@ -41,21 +42,29 @@ export class HiraganaCard extends LitElement {
   }
 
   flip() {
-    console.log(this.romaji, this.symbol);
-    this.flipped = true;
+    console.log(this.flipped, this.face);
+    this.isFlipped = true;
   }
 
   flipBack() {
-    this.flipped = false;
+    this.isFlipped = false;
+  }
+
+  willUpdate(changedProperties: Map<string | number | symbol, unknown>) {
+    if (changedProperties.has('flipped') || changedProperties.has('face')) {
+      this.isFlipped = false;
+    }
   }
 
   render() {
-    return this.flipped
+    return this.isFlipped
       ? html`<div>
-          <p id="romaji" class="card" @click=${this.flipBack}>${this.romaji}</p>
+          <p id="flipped" class="card" @click=${this.flipBack}>
+            ${this.flipped}
+          </p>
         </div>`
       : html`<div>
-          <p id="symbol" class="card" @click=${this.flip}>${this.symbol}</p>
+          <p id="face" class="card" @click=${this.flip}>${this.face}</p>
         </div>`;
   }
 }

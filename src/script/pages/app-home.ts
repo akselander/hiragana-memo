@@ -57,7 +57,7 @@ const HIRAGANA: Hiragana[] = [
 export class AppHome extends LitElement {
   @property() message = 'Welcome!';
 
-  @state() hiragana = HIRAGANA;
+  @state() hiragana = shuffle(HIRAGANA);
 
   static get styles() {
     return css`
@@ -70,13 +70,8 @@ export class AppHome extends LitElement {
 
       .split {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      #welcomeCard {
-        padding: 1rem 3rem;
-        width: min(100%, 40rem);
+        flex-direction: column;
+        text-align: center;
       }
 
       pwa-install {
@@ -101,37 +96,62 @@ export class AppHome extends LitElement {
         fluent-card {
           --fill-color: #edebe9;
         }
+
+        fluent-button {
+          --fill-color: #623b5a;
+        }
       }
 
       @media (prefers-color-scheme: dark) {
         fluent-card {
-          --fill-color: #4e4e4e;
+          --fill-color: #1f2232;
           color: white;
           border: none;
         }
+
+        fluent-button {
+          --accent-fill-rest: #e3bac6;
+          --accent-fill-active: #fde8e9;
+          --accent-fill-hover: #fde8e9;
+          --foreground-on-accent-rest: #1f2232;
+          --foreground-on-accent-active: #1f2232;
+          --foreground-on-accent-hover: #1f2232;
+          --accent-stroke-control-rest: #fde8e9;
+
+          --density: 4;
+          font-size: 1.5rem;
+        }
+
+        flip-card {
+          --accent-fill-rest: #e3bac6;
+          --foreground-on-accent-rest: #1f2232;
+
+          --neutral-fill-rest: #fde8e9;
+        }
+      }
+
+      #welcomeCard {
+        padding: 1rem 2rem;
+        width: min(100%, 40rem);
       }
 
       #hiraganaSet {
         display: flex;
         flex-wrap: wrap;
-        column-gap: 5rem;
+        column-gap: 2rem;
         justify-content: center;
+      }
+
+      @media (min-width: 480px) {
+        #welcomeCard {
+          padding: 1rem;
+        }
       }
     `;
   }
 
   constructor() {
     super();
-  }
-
-  share() {
-    if ((navigator as any).share) {
-      (navigator as any).share({
-        title: 'PWABuilder pwa-starter',
-        text: 'Check out the PWABuilder pwa-starter!',
-        url: 'https://github.com/pwa-builder/pwa-starter',
-      });
-    }
   }
 
   shuffle() {
@@ -145,10 +165,8 @@ export class AppHome extends LitElement {
       <div>
         <div id="welcomeBar">
           <fluent-card id="welcomeCard">
-            <h2>${this.message}</h2>
-
             <div class="split">
-              <p>Here you can practice your Hiragana!</p>
+              <h2>Practice your Hiragana!</h2>
 
               <fluent-button appearance="accent" @click=${this.shuffle}
                 >Shuffle</fluent-button
@@ -166,7 +184,7 @@ export class AppHome extends LitElement {
 }
 
 function renderCard({ symbol, romaji }: Hiragana) {
-  return html`<hiragana-card romaji=${romaji} symbol=${symbol} />`;
+  return html`<flip-card flipped=${romaji} face=${symbol} />`;
 }
 
 type Hiragana = {
